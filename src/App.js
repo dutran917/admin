@@ -8,46 +8,169 @@ function App() {
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
   const RESPONSE_TYPE = "token"
   const [token, setToken] = useState("")
-  const [genreList,setGenreList] = useState([])
-  useEffect(() => {
-      const hash = window.location.hash
-      let token = window.localStorage.getItem("token")
+  const genreList= [
+    "acoustic",
+    "afrobeat",
+    "alt-rock",
+    "alternative",
+    "ambient",
+    "anime",
+    "black-metal",
+    "bluegrass",
+    "blues",
+    "bossanova",
+    "brazil",
+    "breakbeat",
+    "british",
+    "cantopop",
+    "chicago-house",
+    "children",
+    "chill",
+    "classical",
+    "club",
+    "comedy",
+    "country",
+    "dance",
+    "dancehall",
+    "death-metal",
+    "deep-house",
+    "detroit-techno",
+    "disco",
+    "disney",
+    "drum-and-bass",
+    "dub",
+    "dubstep",
+    "edm",
+    "electro",
+    "electronic",
+    "emo",
+    "folk",
+    "forro",
+    "french",
+    "funk",
+    "garage",
+    "german",
+    "gospel",
+    "goth",
+    "grindcore",
+    "groove",
+    "grunge",
+    "guitar",
+    "happy",
+    "hard-rock",
+    "hardcore",
+    "hardstyle",
+    "heavy-metal",
+    "hip-hop",
+    "holidays",
+    "honky-tonk",
+    "house",
+    "idm",
+    "indian",
+    "indie",
+    "indie-pop",
+    "industrial",
+    "iranian",
+    "j-dance",
+    "j-idol",
+    "j-pop",
+    "j-rock",
+    "jazz",
+    "k-pop",
+    "kids",
+    "latin",
+    "latino",
+    "malay",
+    "mandopop",
+    "metal",
+    "metal-misc",
+    "metalcore",
+    "minimal-techno",
+    "movies",
+    "mpb",
+    "new-age",
+    "new-release",
+    "opera",
+    "pagode",
+    "party",
+    "philippines-opm",
+    "piano",
+    "pop",
+    "pop-film",
+    "post-dubstep",
+    "power-pop",
+    "progressive-house",
+    "psych-rock",
+    "punk",
+    "punk-rock",
+    "r-n-b",
+    "rainy-day",
+    "reggae",
+    "reggaeton",
+    "road-trip",
+    "rock",
+    "rock-n-roll",
+    "rockabilly",
+    "romance",
+    "sad",
+    "salsa",
+    "samba",
+    "sertanejo",
+    "show-tunes",
+    "singer-songwriter",
+    "ska",
+    "sleep",
+    "songwriter",
+    "soul",
+    "soundtracks",
+    "spanish",
+    "study",
+    "summer",
+    "swedish",
+    "synth-pop",
+    "tango",
+    "techno",
+    "trance",
+    "trip-hop",
+    "turkish",
+    "work-out",
+    "world-music"
+]
 
-      if (!token && hash) {
-          token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
+  // useEffect(() => {
+  //     const hash = window.location.hash
+  //     let token = window.localStorage.getItem("token")
 
-          window.location.hash = ""
-          window.localStorage.setItem("token", token)
-      }
+  //     if (!token && hash) {
+  //         token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
 
-      setToken(token)
-        axios.get("https://api.spotify.com/v1/recommendations/available-genre-seeds",{
-        headers:{
-          Authorization: `Bearer ${token}`
-        }
-        }).then(
-        (res) =>  {
-          setGenreList(res.data.genres)
-        }
-        )
+  //         window.location.hash = ""
+  //         window.localStorage.setItem("token", token)
+  //     }
+
+  //     setToken(token)
+  //       axios.get("https://api.spotify.com/v1/recommendations/available-genre-seeds",{
+  //       headers:{
+  //         Authorization: `Bearer ${token}`
+  //       }
+  //       }).then(
+  //       (res) =>  {
+  //         setGenreList(res.data.genres)
+  //       }
+  //       )
       
       
-  }, [])
+  // }, [])
   
-  const logout = () => {
-    setToken("")
-    window.localStorage.removeItem("token")
-  }
+  // const logout = () => {
+  //   setToken("")
+  //   window.localStorage.removeItem("token")
+  // }
 
  
   return (
     <div className='App'>
-        {!token ?
-        <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
-            to Spotify</a>
-        : <button onClick={logout}>Logout</button>}
-       {/* <button onClick={getGenre}> get Genre </button> */}
-        <Admin genres={genreList}></Admin>
+          <Admin genres={genreList}></Admin>
     </div>
   );
 }

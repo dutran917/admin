@@ -45,13 +45,7 @@ const Genre = ({genres,getGenre}) => {
                     <div key={index} className='genre' onMouseEnter={()=>{setShow(true); setId(index)}} onMouseLeave={()=>setShow(false)}>
                         <FaMusic style={{marginRight:"20px"}}></FaMusic>
                         <h4>{item}</h4>
-                        {
-                            index==id && show&&
-                            <div style={{display:"flex"}}>
-                                <div className='btn-edit'> Edit </div>
-                                <div className='btn-rm'> Remove </div>
-                            </div>
-                        }
+                       
                     </div>
                     )
                 }
