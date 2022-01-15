@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import './index.css'
+import {BiLogOut} from 'react-icons/bi'
 import Account from './Account';
 import Genre from './Genre';
 import {GrSpotify} from 'react-icons/gr'
@@ -10,6 +11,7 @@ import {
     Route,
     Link
   } from "react-router-dom";
+import Login from './Login';
 const Admin = ({genres}) => {
     const accounts = [
         {
@@ -45,9 +47,26 @@ const Admin = ({genres}) => {
             followers: 0 
         }
     ]
-   
+    const [login, setLogin] = useState(false)
+    const logout = () => {
+        setLogin(false)
+        localStorage.removeItem('login')
+    }
+    useEffect(() => {
+        let check = localStorage.getItem('login')
+        if(check == 'ok')
+            setLogin(true)
+    }, [])
     return (
-    <div className='admin'>
+    <div>
+        {
+            login == false &&
+            <Login setLogin={setLogin}></Login>  
+        }
+        {
+            login ==true &&
+            <div className='admin'>
+                
         <Router>
             <div className='menu'>
             <div style={{marginTop: "30px", marginLeft: "30px"}}>
@@ -69,11 +88,17 @@ const Admin = ({genres}) => {
         
             </div>
             <div className='container'>
+                <div className="logout" style={{display:"flex", position: "absolute", right: "50px" , alignItems: "center"}}>
+                    <h2>Admin1</h2>
+                    <BiLogOut style={{cursor: "pointer"}} onClick={()=>logout()}  size="50px"></BiLogOut>
+                </div>
                 <Route exact path="/" component={()=><Account accounts={accounts}></Account>}></Route>
                 <Route exact path="/manage/account" component={()=><Account accounts={accounts}></Account>}></Route>
                 <Route exact path="/manage/genre" component={()=><Genre genres={genres}></Genre>}></Route>
             </div>
         </Router>
+    </div>
+        }
     </div>
       
     )
