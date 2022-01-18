@@ -11,9 +11,9 @@ function Login({setLogin}) {
     }
     const checkLogin = (e) => {
         e.preventDefault()
-        if(username == admin.username)
+        if(username === admin.username)
         {
-            if( password!=admin.password)
+            if( password!==admin.password)
             {
                 setNoti("Invalid password!")
             }

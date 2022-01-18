@@ -12,7 +12,7 @@ import {
     Link
   } from "react-router-dom";
 import Login from './Login';
-const Admin = ({genres}) => {
+const Admin = ({cate}) => {
     const accounts = [
         {
             id: 1,
@@ -54,17 +54,17 @@ const Admin = ({genres}) => {
     }
     useEffect(() => {
         let check = localStorage.getItem('login')
-        if(check == 'ok')
+        if(check === 'ok')
             setLogin(true)
     }, [])
     return (
     <div>
         {
-            login == false &&
+            login === false &&
             <Login setLogin={setLogin}></Login>  
         }
         {
-            login ==true &&
+            login ===true &&
             <div className='admin'>
                 
         <Router>
@@ -94,7 +94,7 @@ const Admin = ({genres}) => {
                 </div>
                 <Route exact path="/" component={()=><Account accounts={accounts}></Account>}></Route>
                 <Route exact path="/manage/account" component={()=><Account accounts={accounts}></Account>}></Route>
-                <Route exact path="/manage/genre" component={()=><Genre genres={genres}></Genre>}></Route>
+                <Route exact path="/manage/genre" component={()=><Genre cate={cate}></Genre>}></Route>
             </div>
         </Router>
     </div>
